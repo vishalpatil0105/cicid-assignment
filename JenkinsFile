@@ -27,6 +27,22 @@ pipeline {
         }
       }
     }
+    stage('Copy JAR Locally') {
+      steps {
+        script {
+          sh 'cp ./target/spring-boot-web.jar /tmp/spring-boot-web.jar'
+        }
+      }
+    }
+
+    stage('Run JAR File') {
+      steps {
+        script {
+          sh 'nohup java -jar /tmp/spring-boot-web.jar > /tmp/spring-boot-web.log 2>&1 &'
+          sh 'echo "Success!"'
+        }
+      }
+    }
 
     stage('Push New Changes Jar File to GitHub') {
       environment {
