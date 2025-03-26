@@ -12,7 +12,6 @@ pipeline {
       steps {
         sh 'ls -ltr'
         sh 'mvn clean package'
-        sh 'mvn clean test' // Run tests
         junit 'target/surefire-reports/*.xml' // Assuming JUnit tests
       }
     }
