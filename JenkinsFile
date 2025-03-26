@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout GitHub Repo') {
       steps {
-        git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+        git branch: 'main', url: 'https://github.com/vishalpatil0105/cicid-assignment.git'
       }
     }
 
@@ -18,10 +18,10 @@ pipeline {
 
     stage('SonarQube Testing') {
       environment {
-        SONAR_URL = "http://34.201.116.83:9000"
+        SONAR_URL = "http://localhost:9000"
       }
       steps {
-        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+        withCredentials([string(credentialsId: 'sonarqube_token', variable: 'SONAR_AUTH_TOKEN')]) {
           sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
@@ -29,14 +29,14 @@ pipeline {
 
     stage('Push New Changes Jar File to GitHub') {
       environment {
-        GIT_REPO_NAME = ""
-        GIT_USER_NAME = ""
+        GIT_REPO_NAME = "cicid-assignment"
+        GIT_USER_NAME = "vishalpatil0105"
       }
       steps {
         withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
           sh '''
             git config user.email "patilvishal0622@gmail.com"
-            git config user.name ""
+            git config user.name "vishalpatil0105"
             git add .
             git commit -m "added new changes from build ${BUILD_NUMBER}"
             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
