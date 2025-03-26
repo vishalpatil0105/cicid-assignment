@@ -1,0 +1,48 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Checkout GitHub Repo') {
+      steps {
+        git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+      }
+    }
+
+    stage('Build Maven Package and Run Tests') {
+      steps {
+        sh 'ls -ltr'
+        sh 'mvn clean test' // Run tests
+        junit 'target/surefire-reports/*.xml' // Assuming JUnit tests
+      }
+    }
+
+    stage('SonarQube Testing') {
+      environment {
+        SONAR_URL = "http://34.201.116.83:9000"
+      }
+      steps {
+        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+          sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+        }
+      }
+    }
+
+    stage('Push New Changes Jar File to GitHub') {
+      environment {
+        GIT_REPO_NAME = ""
+        GIT_USER_NAME = ""
+      }
+      steps {
+        withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
+          sh '''
+            git config user.email "patilvishal0622@gmail.com"
+            git config user.name ""
+            git add .
+            git commit -m "added new changes from build ${BUILD_NUMBER}"
+            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+          '''
+        }
+      }
+    }
+  }
+}
