@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "target/spring-boot-web.jar"
+      - "target/*"
 
 jobs:
   build-and-push:
