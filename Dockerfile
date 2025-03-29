@@ -1,13 +1,8 @@
-# You can change this base image to anything else
-# But make sure to use the correct version of Java
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM openjdk:17-jdk-slim
 
-# Simply the artifact path
-ARG artifact=target/spring-boot-web.jar
 
-WORKDIR /opt/app
+COPY ./target/spring-boot-assignment.jar  .
 
-COPY ${artifact} app.jar
+RUN chmod +x ./spring-boot-assignment.jar
 
-# This should not be changed
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","spring-boot-assignment.jar"]
