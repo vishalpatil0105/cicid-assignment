@@ -6,12 +6,12 @@ replicaCount: 1
 
 image:
   repository: vishalpatil0105/cicd
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 imagePullSecrets:
-    - name: docker-login
+  - name: docker-login
 nameOverride: ""
 fullnameOverride: ""
 
