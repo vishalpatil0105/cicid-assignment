@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default 
   source:
-    repoURL: "https://github.com/YOUR_GITHUB_ORG/YOUR_HELM_REPO.git" 
+    repoURL: "https://github.com/vishalpatil0105/cicid-assignment.git" 
     targetRevision: "HEAD" 
-    path: "charts/YOUR_CHART_NAME"
+    path: "kubernetes/javaapp"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
