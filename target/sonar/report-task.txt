@@ -2,5 +2,5 @@ projectKey=com.vishal:spring-boot-demo
 serverUrl=http://54.75.82.155:9000
 serverVersion=10.4.1.88267
 dashboardUrl=http://54.75.82.155:9000/dashboard?id=com.vishal%3Aspring-boot-demo
-ceTaskId=04d20c98-4a39-4b1b-84e6-95d76e46d429
-ceTaskUrl=http://54.75.82.155:9000/api/ce/task?id=04d20c98-4a39-4b1b-84e6-95d76e46d429
+ceTaskId=6de9e45f-17d6-4b9d-b86d-7cfc9b5b0b01
+ceTaskUrl=http://54.75.82.155:9000/api/ce/task?id=6de9e45f-17d6-4b9d-b86d-7cfc9b5b0b01
